@@ -10,7 +10,6 @@ import java.util.Vector;
 
 public class RemoteOracle implements Oracle{
 	int countMQ=0;
-	int countEx=0;
 	String alphabet=null;
 	int key=1;
 	
@@ -69,9 +68,6 @@ public class RemoteOracle implements Oracle{
 
 	@Override
 	public boolean membershipQuery(String word) throws ReachedLimitException{
-		countMQ++;
-		//System.out.println(word);
-		
 		String firstLine=null;
 		
 		try{
@@ -85,8 +81,14 @@ public class RemoteOracle implements Oracle{
 			e.printStackTrace();
 		}
 		//System.out.println(firstLine);
-		if(firstLine.startsWith("Yes")) return true;
-		if(firstLine.startsWith("No")) return false;
+		if(firstLine.startsWith("Yes")){
+			countMQ++;
+			return true;
+		}
+		if(firstLine.startsWith("No")){
+			countMQ++;
+			return false;
+		}
 		if(firstLine.startsWith("Limit")) throw new ReachedLimitException();
 		
 		System.out.println("Error: "+firstLine);
