@@ -1,0 +1,1 @@
+Baseline for Zulu competition of active learning from queries.
